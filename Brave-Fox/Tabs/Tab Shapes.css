@@ -1,0 +1,139 @@
+/*
+╔══════════════════════════╦═════════════════════════════════════════════════════════════════════════════[─]═[□]═[×]═╗
+║ Name                     ║ Brave Tabs                                                                              ║
+╠══════════════════════════╬═════════════════════════════════════════════════════════════════════════════════════════╣
+║ Description              ║ Makes Tabs Look Like Brave's                                                            ║
+╠══════════════════════════╬═════════════════════════════════════════════════════════════════════════════════════════╣
+║ Sub-Folder               ║ userChrome.css                                                                          ║
+╠══════════════════════════╬═════════════════════════════════════════════════════════════════════════════════════════╣
+║ Notable Help             ║ u/It_Was_The_Other_Guy                                                                  ║
+╚══════════════════════════╩═════════════════════════════════════════════════════════════════════════════════════════╝
+*/
+
+
+/* Make Tab Colour Same As ToolBar (If You Aren't Using The Brave-Fox Theme) */
+:root {
+    --lwt-selected-tab-background-color: var(--toolbar-bgcolor) !important;
+}
+
+/* Add Space Between New Tab Button & Last Tab */
+#tabs-newtab-button {
+    margin-left: 8px !important;
+}
+
+/* Remove Stupid Black Line Under ToolBar */
+:root {
+    --chrome-content-separator-color: none !important;
+}
+
+/* Set Value For Radius For Both Top Corners */
+#tabbrowser-tabs { 
+    --user-tab-rounding: 5px;
+}
+
+/* Adjust Tab Corner Shape */
+.tab-background {
+    border-radius: 8px !important;
+}
+
+/* Makes New Tab Button Hitbox Not Take Up The Size Of Tab Bar */
+#TabsToolbar .toolbarbutton-1 > .toolbarbutton-icon,
+#TabsToolbar .toolbarbutton-1 > .toolbarbutton-badge-stack {
+    --toolbarbutton-inner-padding: 2px;
+}
+/* Slaughter Text From Pinnend Tabs */
+.tab-text[pinned] {
+    display: none !important;
+}
+
+/* Make Tab Name Semi-Bold When Selected */
+.tab-text[selected] {
+    /*font-weight: 600 !important;*/
+}
+
+/* Remove Left Padding Between Tabs */
+.tabbrowser-tab {
+    padding-right: 1px !important;
+}   
+
+/* Changes Minimum Hight For Tabs [Do Not Touch] */
+#TabsToolbar,
+#tabbrowser-tabs {
+    --tab-min-height: 32px !important;
+}
+
+/* Adds's Brave "Like" Tab Dividers */
+/* Thanks u/It_Was_The_Other_Guy */
+/* Thanks Again For Animation Version */
+.tabbrowser-tab::after {
+    width: 1px;
+    content: "";
+    margin-left: 3px;
+    height: 33px;
+    display: -moz-box;
+    background-image: linear-gradient(
+        transparent 25%,
+        color-mix(in srgb, currentColor 20%, transparent) 10%,
+        color-mix(in srgb, currentColor 20%, transparent) 100%,
+        transparent 80%
+    );
+    transition: opacity 300ms linear !important;
+} 
+.tabbrowser-tab:not([selected]) label {
+    color: #bab8b8 !important;
+    }
+
+.tabbrowser-tab[beforehovered]::after,
+.tabbrowser-tab[beforeselected-visible]::after {
+    opacity: 0;
+}
+
+
+/* Hides Separator On Selected Tabs */
+.tabbrowser-tab[selected]::after {
+    /*background: transparent;*/
+}
+
+/* Make Pinned Tabs Have One Size No Matter How Many Tabs Are Open */
+.tabbrowser-tab[pinned] {  
+    min-width: 37px !important;
+    max-width: 37px !important;
+
+}
+/* Position icon center on pinned tab */
+.tabbrowser-tab[pinned] .tab-icon-image {
+    margin-left: -2px;
+}
+
+/* Makes Tabs Have A Bigger Max Size To Match Brave's */
+.tabbrowser-tab[fadein]:not([pinned]) {  
+    max-width: 235px !important;
+}
+
+
+/*
+╔════════════════════════════════════════════════[─]═[□]═[×]═╗
+║ Override Normal Density To Compact Density For Tabs.       ║
+║ I Have No Idea What What This Does, I Got It From          ║
+║ https://www.userchrome.org/                                ║
+╚════════════════════════════════════════════════════════════╝
+*/
+
+    /* W h a t   d o e s   t h i s   d o */
+    #scrollbutton-up,
+    #scrollbutton-down {
+        border-top-width: 0 !important;
+        border-bottom-width: 0 !important;
+    }
+
+    /*Idk What This Does But This Was The Note Given:
+    "Set A Max Height Based On Min-height Plus Margin-block: 1px 0"
+    Don't Touch The "9px" Tho, That's What's "Perfect" From What I Tested*/
+    #TabsToolbar,
+    #TabsToolbar > hbox,
+    #TabsToolbar-customization-target,
+    #tabbrowser-arrowscrollbox {
+        max-height: calc(var(--tab-min-height) + 9px) !important;
+    }
+
+/*══════════════════════════════════════════════════════════*/
